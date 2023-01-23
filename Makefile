@@ -1,32 +1,39 @@
-SOURCES = server.c client.c
-OBJECTS = $(SOURCES:.c=.o)
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rakhsas <rakhsas@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/01/22 23:21:00 by rakhsas           #+#    #+#              #
+#    Updated: 2023/01/23 12:57:09 by rakhsas          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CFLAGS = -Wall -Werror -Wextra
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
 
-all: server client
+CLIENT = client
+SERVER = server
 
-bonus: server client
+CLIENT_BONUS = client_bonus
+SERVER_BONUS = server_bonus
 
-server: server.o libft
-	$(CC) -o $@ $< -Llibft -lft
+all: $(CLIENT) $(SERVER)
 
-client: client.o libft
-	$(CC) -o $@ $< -Llibft -lft
+$(CLIENT) : client.c
+		$(CC) $(CFLAGS) client.c utils.c -o client
+$(SERVER) : server.c
+		$(CC) $(CFLAGS) server.c utils.c -o server
 
-%.o: %.c
-	$(CC) -c $(CFLAGS) $?
+bonus: $(CLIENT_BONUS) $(SERVER_BONUS)
 
-libft:
-	make -C libft
+$(CLIENT_BONUS) : client_bonus.c
+		$(CC) $(CFLAGS) client_bonus.c utils.c -o client_bonus
+$(SERVER_BONUS) : server_bonus.c
+		$(CC) $(CFLAGS) server_bonus.c utils.c -o server_bonus
+fclean:
+	rm -rf $(CLIENT) $(SERVER) $(CLIENT_BONUS) $(SERVER_BONUS)
 
-clean:
-	rm -f $(OBJECTS)
-	make -C libft clean
-	
-fclean: clean
-	rm -f server client libft/libft.a
-
-re: fclean all
-
-.PHONY: all bonus libft clean fclean re
+re: fclean all bonus

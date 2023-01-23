@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakhsas <rakhsas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/08 12:20:54 by hbaddrul          #+#    #+#             */
-/*   Updated: 2023/01/23 13:45:22 by rakhsas          ###   ########.fr       */
+/*   Created: 2023/01/22 23:38:03 by rakhsas           #+#    #+#             */
+/*   Updated: 2023/01/23 13:45:25 by rakhsas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ size_t	ft_strlen(const char *s);
 
 static void	action(int sig)
 {
-	static int	i = 0;
-	static char	c = 0;
+	static int				i = 0;
+	static unsigned char	c = 0;
 
 	c |= (sig == SIGUSR2);
 	if (++i == 8)
